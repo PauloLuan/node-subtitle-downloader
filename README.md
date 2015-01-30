@@ -1,4 +1,14 @@
-## Installing NODEJS
+## Node Subtitle Downloader
+
+About the application: 
+
+- Recursively walks through the directories searching for video files in almost every well known format.
+- Searches OpenSubtitles.org and fetches the best quality subs available.
+- Downloads subtitles and places them along with the video file itself.
+
+## How to run 
+
+### Installing NODEJS
 
 You must have to use [nodejs](http://nodejs.org/) version 0.10.x. If you not have node on your machine, just put the following code into your terminal as a root (assuming that you're using Linux), it will install and configure the NodeJS by the [NVM (Node Version Manager)](https://github.com/creationix/nvm)
 
@@ -26,6 +36,6 @@ You must have to use [nodejs](http://nodejs.org/) version 0.10.x. If you not hav
 
 	npm install
 
-How to run:
+### run the program! :)
 
 	nw .
