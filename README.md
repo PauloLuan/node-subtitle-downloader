@@ -1,6 +1,6 @@
 ## Installing NODEJS
 
-You must have to use [nodejs](http://nodejs.org/) version 0.10.x. If you not have node on your machine, just put the following code into your terminal as a root, it will install and configure the NodeJS by the [NVM (Node Version Manager)](https://github.com/creationix/nvm)
+You must have to use [nodejs](http://nodejs.org/) version 0.10.x. If you not have node on your machine, just put the following code into your terminal as a root (assuming that you're using Linux), it will install and configure the NodeJS by the [NVM (Node Version Manager)](https://github.com/creationix/nvm)
 
 	# log as sudo
 	sudo su
