@@ -14,58 +14,64 @@ function login()
 
 /*
 
-array SearchSubtitles( $token,
- 
- array(array(
-
- sublanguageid => $sublanguageid,
- moviehash => $moviehash,
- moviebytesize => $moviesize,
- imdbid ,
- query - movie name,
- season - season number,
- episode - episode number,
- tag - the name of the file ),
-
-array(...)),
- array(limit => 500))
+params: 
+	sublanguageid - The ISO639 language code (like: pob, eng)
+	moviehash - teh SHA1 hash of the file
+	moviebytesize - The size of the file that will be searched
+	imdbid - The Internet Movie Database ID
+	query - movie name
+	season - season number
+	episode - episode number
+	tag - the name of the file
 
 
-
-
- Example:
-
+Example:
 
 params = [{
-	
+	'query' : 'south park', 
+    'season' : 1, 
+    'episode' : 1, 
+    'sublanguageid':'all',
+    'imdbid' : '1129442', 
 }];
- 
-   'query' : 'south park', 'season' : 1, 'episode' : 1, 'sublanguageid':'all',
-   'imdbid' : '1129442', 'sublanguageid' : 'eng',
-   'query' : 'matrix', 'sublanguageid' : 'cze,slo',
-   'moviehash' : '18379ac9af039390', 'moviebytesize' : 366876694,
-   'tag' : 'heroess01e08.avi', 
-,
 
-   'limit' => 100
-)
+params = [{
+    'query' : 'matrix', 
+    'sublanguageid' : 'cze,slo,pob,eng',
+    'moviehash' : '18379ac9af039390', 
+    'moviebytesize' : 366876694,
+}]
+
+params = [{
+    'sublanguageid': 'pob',
+    'moviehash' : '18379ac9af039390', 
+    'moviebytesize' : 366876694,
+    'tag' : 'heroess01e08.avi'
+}]
 
 */
-function ajaxOpenSubtitle(queryText, params, limit)
+function ajaxOpenSubtitle(params, limit)
 {
 	var request, parsedXml;
-
-	var searchRequest = new XmlRpcRequest("http://api.opensubtitles.org/xml-rpc", "SearchSubtitles");
-
-	searchRequest.addParam(token);
-	searchRequest.addParam(params);
-
-	if(limit) { searchRequest.addParam([{limit: limit}]); }
-
-	request = searchRequest.send();
-	parsedXml = request.parseXML();
 	
-	return parsedXml;
+	if(token) 
+	{
+		var searchRequest = new XmlRpcRequest("http://api.opensubtitles.org/xml-rpc", "SearchSubtitles");
+
+		searchRequest.addParam(token);
+		searchRequest.addParam(params);
+
+		if(limit) { searchRequest.addParam([{limit: limit}]); }
+
+		request = searchRequest.send();
+		parsedXml = request.parseXML();
+	} 
+	else 
+	{
+		console.log("Usuário Não Logado...");
+	}
+
+ 	return parsedXml;
 }
 
 function getServerInfo()
