@@ -13,42 +13,36 @@ function login()
 
 
 /*
+	@param params 
+		A JSON Object with the following structure:
+			sublanguageid - The ISO639 language code (like: pob, eng)
+			moviehash - teh SHA1 hash of the file
+			moviebytesize - The size of the file that will be searched
+			imdbid - The Internet Movie Database ID
+			query - movie name
+			season - season number
+			episode - episode number
+			tag - the name of the file
 
-params: 
-	sublanguageid - The ISO639 language code (like: pob, eng)
-	moviehash - teh SHA1 hash of the file
-	moviebytesize - The size of the file that will be searched
-	imdbid - The Internet Movie Database ID
-	query - movie name
-	season - season number
-	episode - episode number
-	tag - the name of the file
+			Examples:
 
+			params = {'query' : 'south park', 'sublanguageid':'all'};
 
-Example:
+			params = { 
+			    'query' : 'matrix', 
+			    'sublanguageid' : 'cze,slo,pob,eng',
+			    'moviehash' : '18379ac9af039390', 
+			    'moviebytesize' : 366876694,
+			}
 
-params = [{
-	'query' : 'south park', 
-    'season' : 1, 
-    'episode' : 1, 
-    'sublanguageid':'all',
-    'imdbid' : '1129442', 
-}];
-
-params = [{
-    'query' : 'matrix', 
-    'sublanguageid' : 'cze,slo,pob,eng',
-    'moviehash' : '18379ac9af039390', 
-    'moviebytesize' : 366876694,
-}]
-
-params = [{
-    'sublanguageid': 'pob',
-    'moviehash' : '18379ac9af039390', 
-    'moviebytesize' : 366876694,
-    'tag' : 'heroess01e08.avi'
-}]
-
+			params = {
+			    'sublanguageid': 'pob',
+			    'moviehash' : '18379ac9af039390', 
+			    'moviebytesize' : 366876694,
+			    'tag' : 'heroess01e08.avi'
+			}
+	
+	@param limit - the row number limit to the remote query
 */
 function ajaxOpenSubtitle(params, limit)
 {
@@ -59,9 +53,9 @@ function ajaxOpenSubtitle(params, limit)
 		var searchRequest = new XmlRpcRequest("http://api.opensubtitles.org/xml-rpc", "SearchSubtitles");
 
 		searchRequest.addParam(token);
-		searchRequest.addParam(params);
+		searchRequest.addParam([params]);
 
-		if(limit) { searchRequest.addParam([{limit: limit}]); }
+		if(limit) { searchRequest.addParam({limit: limit}); }
 
 		request = searchRequest.send();
 		parsedXml = request.parseXML();
